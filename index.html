@@ -31,12 +31,12 @@
       color:var(--ink);
     }
 
-    /* subtle floating hearts */
-    .bgHearts{ position:fixed; inset:-40px; pointer-events:none; z-index:-1; }
+    /* subtle floating background hearts */
+    .bgHearts{ position:fixed; inset:-40px; pointer-events:none; z-index:-2; }
     .bgHearts span{
       position:absolute;
       animation: floatUp linear infinite;
-      opacity:.85;
+      opacity:.80;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,.06));
       user-select:none;
     }
@@ -44,6 +44,16 @@
       from{ transform: translateY(120vh) translateX(0) rotate(0deg); }
       to{ transform: translateY(-25vh) translateX(40px) rotate(360deg); }
     }
+
+    /* cinematic dim */
+    .cinema{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,0);
+      pointer-events:none;
+      z-index: 200;
+      transition: background 1.1s ease;
+    }
+    .cinema.on{ background: rgba(0,0,0,0.40); }
 
     /* overlay */
     .overlay{
@@ -66,7 +76,6 @@
     }
     .overlayCard h2{ margin:0 0 8px; }
     .overlayCard p{ margin:0 0 14px; opacity:.86; line-height:1.5; }
-
     .progress{
       height:10px; border-radius:999px; overflow:hidden;
       background: rgba(255,255,255,.14);
@@ -78,7 +87,6 @@
       background: linear-gradient(90deg, var(--pink), #ffd2e2);
       transition: width .18s ease;
     }
-
     .startBtn{
       border:0;
       background: var(--pink);
@@ -92,7 +100,7 @@
 
     /* main card */
     .card{
-      width:min(820px, 92vw);
+      width:min(860px, 92vw);
       background: var(--card);
       border:1px solid var(--stroke);
       border-radius: 28px;
@@ -102,7 +110,6 @@
       margin: 34px 0;
       position:relative;
     }
-
     .version{
       position:absolute;
       top:16px; right:16px;
@@ -117,9 +124,9 @@
     h1{ margin: 6px 0 6px; font-size: 2.05rem; }
     .lead{ margin:0 0 14px; opacity:.92; font-size:1.05rem; }
 
-    /* love notes (cute pop-in) */
+    /* love notes (pop-in) */
     .notes{
-      width:min(700px, 100%);
+      width:min(740px, 100%);
       margin: 10px auto 16px;
       display:flex;
       flex-direction:column;
@@ -150,15 +157,6 @@
       to{ opacity:1; transform: translateY(0) scale(1); }
     }
     .note strong{ color: var(--pink); }
-    .spark{
-      display:inline-block;
-      margin-left:6px;
-      animation: sparkle 1.6s ease-in-out infinite;
-    }
-    @keyframes sparkle{
-      0%,100%{ transform: translateY(0); opacity:.8; }
-      50%{ transform: translateY(-2px); opacity:1; }
-    }
 
     /* photos */
     .photos{
@@ -166,7 +164,7 @@
       gap: 12px; margin: 12px 0 12px;
     }
     .photos img{
-      width: 220px; height: 220px;
+      width: 230px; height: 230px;
       object-fit: cover;
       border-radius: 22px;
       border:1px solid rgba(255,45,111,.18);
@@ -196,19 +194,16 @@
       transition: transform .12s ease, filter .15s ease, box-shadow .18s ease;
     }
     button:active{ transform: scale(.99); }
-
     #yes{
       background: var(--pink);
       color:white;
       box-shadow: 0 18px 30px rgba(255,45,111,.25);
     }
     #yes:hover{ filter: brightness(1.03); }
-
     #no{
       background:#f2f2f2;
       border:1px solid rgba(0,0,0,.06);
     }
-
     .toast{
       min-height: 24px;
       margin-top: 10px;
@@ -221,9 +216,9 @@
       font-weight: 1000;
     }
 
-    /* Faba appreciation */
+    /* appreciation */
     .appreciation{
-      width:min(700px, 100%);
+      width:min(740px, 100%);
       margin: 18px auto 0;
       text-align:left;
       padding: 16px;
@@ -246,7 +241,6 @@
     }
     .appTitle{ margin:0; font-size:1.15rem; }
     .appSub{ margin-top:4px; opacity:.82; line-height:1.45; }
-
     .chips{
       margin-top:12px;
       display:flex; gap:10px; flex-wrap:wrap;
@@ -269,30 +263,33 @@
       opacity:.72;
     }
 
-    /* cinematic dim on YES */
-    .cinema{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,0);
-      pointer-events:none;
-      z-index: 200;
-      transition: background 1.1s ease;
+    /* audio debug banner */
+    .audioWarn{
+      width:min(740px, 100%);
+      margin: 12px auto 0;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,45,111,.18);
+      background: rgba(255,240,246,.9);
+      text-align:left;
+      display:none;
     }
-    .cinema.on{ background: rgba(0,0,0,0.40); }
+    .audioWarn strong{ color:var(--pink); }
 
-    /* AFTER YES MODAL */
+    /* AFTER YES modal */
     .afterYes{
       position: fixed;
       inset: 0;
       display:none;
       place-items:center;
       padding:24px;
-      z-index: 500;
+      z-index: 700;
       background: rgba(0,0,0,.25);
       backdrop-filter: blur(3px);
     }
     .afterCard{
-      width:min(720px, 92vw);
-      background: rgba(255,255,255,.96);
+      width:min(780px, 94vw);
+      background: rgba(255,255,255,.97);
       border: 1px solid rgba(255,45,111,.18);
       border-radius: 28px;
       padding: 18px;
@@ -304,29 +301,58 @@
     .afterCard::before{
       content:"";
       position:absolute; inset:0;
-      background: radial-gradient(circle at 15% 10%, rgba(255,45,111,.12), transparent 55%),
-                  radial-gradient(circle at 85% 20%, rgba(255,106,162,.12), transparent 55%);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,45,111,.12), transparent 55%),
+        radial-gradient(circle at 85% 20%, rgba(255,106,162,.12), transparent 55%);
       pointer-events:none;
     }
     .afterTitle{
       margin: 6px 0 6px;
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       font-weight: 1000;
       position:relative;
     }
     .afterText{
-      margin: 0 auto 12px;
-      max-width: 560px;
-      opacity:.9;
+      margin: 0 auto 10px;
+      max-width: 620px;
+      opacity:.92;
       line-height:1.45;
       position:relative;
+      font-size: 1rem;
     }
+    .typeLine{
+      font-weight: 1000;
+      color: var(--pink);
+      letter-spacing:.02em;
+      margin: 10px auto 14px;
+      min-height: 28px;
+      max-width: 680px;
+      position:relative;
+      font-size: 1.05rem;
+    }
+
+    .catWrap{
+      display:flex;
+      justify-content:center;
+      margin: 8px 0 10px;
+      position:relative;
+    }
+    .catGif{
+      width: 240px;
+      max-width: 80vw;
+      border-radius: 18px;
+      box-shadow: 0 18px 36px rgba(0,0,0,.18);
+      border: 1px solid rgba(255,45,111,.16);
+      background:white;
+    }
+
     .afterBtns{
       display:flex;
       gap:10px;
       justify-content:center;
       flex-wrap:wrap;
       position:relative;
+      margin-top: 10px;
     }
     .miniBtn{
       border:0;
@@ -349,12 +375,38 @@
       opacity:.75;
       position:relative;
     }
+
+    /* HEART RAIN layer */
+    .heartRain{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      z-index: 650;
+      display:none;
+      overflow:hidden;
+    }
+    .drop{
+      position:absolute;
+      top:-40px;
+      will-change: transform, opacity;
+      animation: fall linear forwards;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));
+      user-select:none;
+    }
+    @keyframes fall{
+      0%{ transform: translateY(-60px) rotate(0deg); opacity: 0; }
+      10%{ opacity: 1; }
+      100%{ transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
   </style>
 </head>
 
 <body>
   <div class="bgHearts" id="bgHearts"></div>
   <div class="cinema" id="cinema"></div>
+
+  <!-- heart rain -->
+  <div class="heartRain" id="heartRain"></div>
 
   <div class="overlay" id="overlay">
     <div class="overlayCard">
@@ -366,7 +418,7 @@
   </div>
 
   <div class="card">
-    <div class="version">NEW VERSION ✅</div>
+    <div class="version">NEW VERSION ✅ HEART RAIN</div>
 
     <h1>Hey Faba Fish 💗</h1>
     <p class="lead">soooo i had to get creative considering i cant really do a in person proposal!! :3</p>
@@ -388,13 +440,15 @@
     <div class="toast" id="toast"></div>
     <div class="result" id="result"></div>
 
+    <div class="audioWarn" id="audioWarn"></div>
+
     <div class="appreciation">
       <div class="appTop">
         <div>
           <div class="badge">OFFICIAL FABA FISH APPRECIATION SECTION</div>
           <h3 class="appTitle">Things I’m obsessed with (respectfully)</h3>
           <div class="appSub">
-            This is not a list. This is <strong>evidence</strong>. Also yes, Four Eyes wrote this. <span class="spark">✨</span>
+            This is not a list. This is <strong>evidence</strong>. Also yes, Four Eyes wrote this.
           </div>
         </div>
         <div style="font-size:1.4rem;">💗</div>
@@ -426,12 +480,19 @@
         Text me <strong>“YES”</strong> so I know it’s real 😭💗
       </div>
 
+      <div class="typeLine" id="typeLine"></div>
+
+      <div class="catWrap">
+        <img class="catGif" alt="dancing cat"
+             src="https://media1.tenor.com/m/Gnt8PbXCSGgAAAAd/cat-dancing.gif">
+      </div>
+
       <div class="afterBtns">
         <button class="miniBtn primary" id="musicBtn" type="button">Tap to start music 🎧</button>
         <button class="miniBtn ghost" id="closeBtn" type="button">Close</button>
       </div>
 
-      <div class="hint">If music is already playing, this button will just make sure it’s unmuted.</div>
+      <div class="hint">If music is blocked: click the 🔒 in the address bar → Sound → Allow, then press the button again.</div>
     </div>
   </div>
 
@@ -479,15 +540,18 @@
         div.className = "note";
         div.innerHTML = line;
         notesEl.appendChild(div);
-        setTimeout(()=>div.classList.add("show"), 180 + idx*280);
+        setTimeout(()=>div.classList.add("show"), 180 + idx*260);
       });
     }
 
-    startBtn.addEventListener("click", () => {
+    startBtn.addEventListener("click", async () => {
       overlay.style.opacity="0";
       overlay.style.transition="opacity .45s ease";
       setTimeout(()=>overlay.remove(), 480);
       revealNotes();
+
+      // quick sanity check: is radio.mp3 reachable?
+      await checkAudioFile();
     });
 
     // Buttons
@@ -497,7 +561,17 @@
     const toast = document.getElementById("toast");
     const result = document.getElementById("result");
     const cinema = document.getElementById("cinema");
+    const audioWarn = document.getElementById("audioWarn");
 
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.animate(
+        [{opacity:0, transform:"translateY(6px)"},{opacity:1, transform:"translateY(0)"}],
+        {duration:160, easing:"ease-out"}
+      );
+    }
+
+    // dodge NO
     let dodges = 0;
     const noLines = [
       "be serious 😭",
@@ -511,14 +585,6 @@
       "alright… I’m gonna start crying",
       "fine. NO is deleted."
     ];
-
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.animate(
-        [{opacity:0, transform:"translateY(6px)"},{opacity:1, transform:"translateY(0)"}],
-        {duration:160, easing:"ease-out"}
-      );
-    }
 
     function moveNo(){
       dodges++;
@@ -546,22 +612,114 @@
     no.addEventListener("mouseenter", moveNo);
     no.addEventListener("click", moveNo);
 
-    // Audio: ONLY plays radio.mp3 on YES
+    // audio
     const song = document.getElementById("song");
 
-    function fadeInAudio(audio, seconds=2.2){
+    async function checkAudioFile(){
+      try{
+        const res = await fetch("radio.mp3", { method: "HEAD", cache: "no-store" });
+        if(!res.ok){
+          audioWarn.style.display = "block";
+          audioWarn.innerHTML =
+            "<strong>Audio file not found:</strong> I can’t reach <code>radio.mp3</code> in your repo root. " +
+            "Upload/rename it to exactly <strong>radio.mp3</strong> next to <strong>index.html</strong>.";
+        } else {
+          audioWarn.style.display = "none";
+        }
+      }catch(e){
+        // ignore; some browsers block HEAD
+      }
+    }
+
+    function fadeInAudio(audio, seconds=2.0){
       audio.volume = 0;
       const steps = 30;
-      const intervalMs = (seconds*1000)/steps;
+      const intervalMs = (seconds * 1000) / steps;
       let step = 0;
-      const t = setInterval(()=>{
+      const t = setInterval(() => {
         step++;
-        audio.volume = Math.min(step/steps, 1);
-        if(step>=steps) clearInterval(t);
+        audio.volume = Math.min(step / steps, 1);
+        if (step >= steps) clearInterval(t);
       }, intervalMs);
     }
 
-    // heart burst
+    async function forcePlayMusic(){
+      // force unmute + full volume
+      song.muted = false;
+      song.volume = 1;
+      try{
+        await song.play();
+        fadeInAudio(song, 2.2);
+        musicBtn.textContent = "Music playing 🎶";
+      }catch(e){
+        musicBtn.textContent = "Sound blocked — allow sound 🔊";
+        showToast("If no sound: right-click tab → Unmute site, or 🔒 icon → Sound → Allow.");
+      }
+    }
+
+    // HEART RAIN
+    const heartRain = document.getElementById("heartRain");
+    let rainTimer = null;
+
+    function spawnHeart(){
+      const d = document.createElement("div");
+      d.className = "drop";
+      d.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+
+      const left = Math.random() * 100; // vw
+      const size = 14 + Math.random() * 22;
+      const dur  = 1.8 + Math.random() * 1.9;
+      const delay = Math.random() * 0.2;
+
+      d.style.left = left + "vw";
+      d.style.fontSize = size + "px";
+      d.style.animationDuration = dur + "s";
+      d.style.animationDelay = delay + "s";
+
+      heartRain.appendChild(d);
+      setTimeout(()=>d.remove(), (dur + delay) * 1000 + 200);
+    }
+
+    function startHeartRain(){
+      heartRain.style.display = "block";
+      if(rainTimer) clearInterval(rainTimer);
+      // steady rain
+      rainTimer = setInterval(() => {
+        for(let i=0;i<3;i++) spawnHeart();
+      }, 120);
+      // stop after a bit (still feels like a moment)
+      setTimeout(() => stopHeartRain(), 9000);
+    }
+
+    function stopHeartRain(){
+      if(rainTimer) clearInterval(rainTimer);
+      rainTimer = null;
+      setTimeout(()=>{ heartRain.style.display="none"; heartRain.innerHTML=""; }, 900);
+    }
+
+    // TYPEWRITER LINE
+    const typeLine = document.getElementById("typeLine");
+    const typeText = "WE'RE LITERALLY JESTER AND FJORD!!!!!!";
+
+    function typeWriter(text, speed=55){
+      typeLine.textContent = "";
+      let i = 0;
+      const t = setInterval(() => {
+        typeLine.textContent += text[i];
+        i++;
+        if(i >= text.length) clearInterval(t);
+      }, speed);
+    }
+
+    // after-YES modal
+    const afterYes = document.getElementById("afterYes");
+    const musicBtn = document.getElementById("musicBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+    musicBtn.addEventListener("click", forcePlayMusic);
+    closeBtn.addEventListener("click", () => afterYes.style.display = "none");
+
+    // heart burst (extra pop)
     function heartBurst(){
       for(let i=0;i<60;i++){
         const p=document.createElement("div");
@@ -590,44 +748,22 @@
       }
     }
 
-    // AFTER YES modal controls
-    const afterYes = document.getElementById("afterYes");
-    const musicBtn = document.getElementById("musicBtn");
-    const closeBtn = document.getElementById("closeBtn");
-
-    async function forcePlayMusic(){
-      // make sure it isn't muted and volume isn't stuck at 0
-      song.muted = false;
-      song.volume = 1;
-
-      try{
-        await song.play();
-        fadeInAudio(song, 2.2);
-        musicBtn.textContent = "Music playing 🎶";
-      }catch(e){
-        // If this still fails, the browser has site sound blocked
-        musicBtn.textContent = "Sound blocked — unmute site 🔊";
-        showToast("If sound is blocked: click the 🔒 in the address bar and allow sound.");
-      }
-    }
-
     yes.addEventListener("click", async () => {
       cinema.classList.add("on");
       result.innerHTML = "YIPPEEE HOORAYYYY YAYYYYYY 🎉💞";
       no.style.display="none";
       yes.textContent="YES ✅";
       showToast("W. Massive W. 😭💖");
+
       heartBurst();
+      startHeartRain();
 
-      // show cute after scene
       afterYes.style.display = "grid";
+      typeWriter(typeText, 55);
 
-      // attempt to play immediately (works on most browsers)
+      // try music immediately (user gesture = YES click)
       await forcePlayMusic();
     });
-
-    musicBtn.addEventListener("click", forcePlayMusic);
-    closeBtn.addEventListener("click", ()=> afterYes.style.display = "none");
   </script>
 </body>
 </html>
